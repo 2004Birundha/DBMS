@@ -1,0 +1,80 @@
+1.SQL> select count(mobile_no),
+  2   min(mobile_no),
+  3   max(mobile_no)from customer;
+
+COUNT(MOBILE_NO) MIN(MOBILE_NO) MAX(MOBILE_NO)
+---------------- -------------- --------------
+              15     9080706050     9876678909
+
+2.SQL> select sum(balance),
+  2  avg(balance),
+  3  min(balance),
+  4  max(balance) from account;
+
+SUM(BALANCE) AVG(BALANCE) MIN(BALANCE) MAX(BALANCE)
+
+------------ ------------ ------------ ------------
+538000         35866.6667  12000         92000
+
+
+3.SQL> select branch,avg(balance) from account group by branch having avg(balance)>5000;
+
+BRANCH                    AVG(BALANCE)
+------------------------- ------------
+chrompet                         32000
+guindy                      54666.6667
+tambaram                         39000
+velacherry                  14666.6667
+     
+
+ 4. SQL> select sum(balance),avg(balance),min(balance),max(balance)from account where account_type!='savings';
+
+SUM(BALANCE) AVG(BALANCE) MIN(BALANCE) MAX(BALANCE)
+------------ ------------ ------------ ------------
+      211000   30142.8571        20000        70000
+
+6.
+SQL> select count(*),count(distinct trans_type)from transaction where trans_type='deposit';
+
+  COUNT(*) COUNT(DISTINCTTRANS_TYPE)
+---------- -------------------------
+         6                         1
+
+7.
+SQL> select sum(amount),avg(amount),min(amount),max(amount)from transaction where amount>5000;
+
+SUM(AMOUNT) AVG(AMOUNT) MIN(AMOUNT) MAX(AMOUNT)
+----------- ----------- ----------- -----------
+    1265500  84366.6667       30100      340100
+
+8.
+SQL> select sum(loan_amount),avg(loan_amount),min(loan_amount),max(loan_amount)from loan where loan_amount<50000 or term<'24 months';
+
+SUM(LOAN_AMOUNT) AVG(LOAN_AMOUNT) MIN(LOAN_AMOUNT) MAX(LOAN_AMOUNT)
+---------------- ---------------- ---------------- ----------------
+          678000            67800            30000           120000
+
+9.
+SQL> select loan_type,avg(loan_amount)from loan
+  2  group by loan_type having avg(loan_amount)>20000;
+
+LOAN_TYPE            AVG(LOAN_AMOUNT)
+-------------------- ----------------
+personal                        70000
+auto                            63600
+markage                         60000
+
+
+10.
+SQL> select sum(paid_amount),avg(paid_amount),min(paid_amount),max(paid_amount)from loanpayment where principle_amount<50
+000 or interest_amount<5000;
+
+SUM(PAID_AMOUNT) AVG(PAID_AMOUNT) MIN(PAID_AMOUNT) MAX(PAID_AMOUNT)
+---------------- ---------------- ---------------- ----------------
+           20000            10000             5000            15000
+
+11.SQL> select sum(paid_amount),avg(paid_amount)from loanpayment where schedulepay_date=paid_date;
+
+SUM(PAID_AMOUNT) AVG(PAID_AMOUNT)
+---------------- ----------------
+           90000            45000
